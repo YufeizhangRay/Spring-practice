@@ -1,0 +1,52 @@
+1.Spring 如何在 WEB 应用中使用
+
+1).需要额外加入的 jar 包
+
+spring-webmvc-portlet-4.3.1.RELEASE.jar
+spring-websocket-4.3.1.RELEASE.jar
+
+2).Spring 的配置文件，没有什么不同
+
+3).如何创建 IOC 容器?
+
+①非 WEB 应用在类方法中直接创建
+②应该在 WEB 应用被服务器加载时就创建 IOC 容器:
+
+在 ServletContextLinster#contextInitialized(ServletContextEvent sce) 方法中创建 IOC 容器
+
+③在 WEB 应用的其他组件中如何访问 IOC 容器?
+
+在 ServletContextLinster#contextInitialized(ServletContextEvent sce) 方法中创建 IOC 容器后，
+可以将其放在 ServletContext(即 application 域)的一个属性中
+
+④实际上，Spring 配置文件的名字和位置也是可配置的，将其配置到当前 WEB 应用的初始化参数中较为合适
+
+4).在 WEB 环境下使用 Spring 
+
+①需要额外加入的 jar 包
+
+spring-webmvc-portlet-4.3.1.RELEASE.jar
+spring-websocket-4.3.1.RELEASE.jar
+
+②Spring 的配置文件，和非 WEB 没有什么不同
+
+③需要在 web.xml 文件中加入如下配置:
+
+<!-- 配置 Spring 的名称和位置 -->
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:applicationContext.xml</param-value>
+	</context-param>
+
+	<!-- 启动 IOC 容器的 ServletContextListener -->
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+
+2. spring 如何整合 Struts2 ?
+
+1).整合目标？使 IOC 容器管理 Struts2 的 Action
+
+2).如何进行整合？
+
+①.正常加入 Struts2
