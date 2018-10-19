@@ -17,7 +17,5 @@ spring框架学习实践
   
 >>`AOP`的底层实现原理是动态代理(利用`JDK`或`CGLIB`生成新的字节码文件，然后通过`ClassLoader`将字节码文件加载进虚拟机，从而可以利用`反射机制`(可见反射机制真的是一个十分重要的应用，诸多框架的底层原理的实现都是依赖于反射机制)得到代理的对象类，代理对象的命名一般为`$Proxy0`、`$Proxy1`、`$Proxy2`等等，看到类似这样的对象就说明代理对象获取成功了)。被代理对象的方法，实际上会由动态代理出来的代理对象的`invoke()`方法来执行，此方法中调用原始方法之前、之后都可以加入`AOP`的切面来完成功能的实现。  
   
->>具体到`Spring`中，以事务的实现为例。开发者可以通过在`applicationContext.xml配置文件`中配置指定一个需要扫描的路径作为切点(`Service`包下面所有的类的所有方法)，然后再将次切点与`transactionManager`(事务管理器)相关联，实现事务功能(`Spring`事务的底层原理其实就是对`JDBC`进行了封装，利用`conmmit()`方法和`rollback()`方法实现提交或者回滚，至于事务是什么，MySQL事务的四大特性，分别的实现原理，我就不写了，总要给面试官提问的机会啊)。  
+>>具体到`Spring`中，以事务的实现为例。开发者可以通过在`applicationContext.xml配置文件`中配置指定一个需要扫描的路径作为切点(`Service`包下面所有的类的所有方法)，然后再将次切点与`transactionManager`(事务管理器)相关联，实现事务功能(`Spring`事务的底层原理其实就是对`JDBC`进行了封装，利用`conmmit()`方法和`rollback()`方法实现提交或者回滚，至于事务是什么，MySQL事务的四大特性，分别的实现原理，我就不写了)。  
 开发者也可以自定义切面，使用`@Aspect`将一个类定义为切面，使用`@Pointcut`注解定义切点，使用`@Before`、`@After`、`@AfterReturning`、`@AfterThrowing`注解定义方法的调用时机。  
-  
-Spring的讲解先到这里把，后面还有SpringMVC，也许还会有SpringBoot，SpringCloud。。。。Spring全家桶我服
